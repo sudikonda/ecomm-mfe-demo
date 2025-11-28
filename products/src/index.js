@@ -21,6 +21,6 @@ productsHtml = products.map(product => {
     `;
 }).join('');
 
-document.getElementById('root').innerHTML = productsHtml;
+document.getElementById('products-index').innerHTML = productsHtml;
 
 
