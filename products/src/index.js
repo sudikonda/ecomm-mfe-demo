@@ -1,13 +1,13 @@
-import faker from "faker";
+import { faker } from '@faker-js/faker';
 
 let products = [];
 
 for (let i = 0; i < 8; i++) {
     products.push({
         name: faker.commerce.productName(),
-        price: faker.commerce.price(100, 2000, 2, '$'),
+        price: faker.commerce.price(),
         category: faker.commerce.department(),
-        image: `https://picsum.photos/seed/${faker.random.alphaNumeric(8)}/300/200`
+        image: `https://picsum.photos/seed/${faker.string.alphanumeric(8)}/300/200`
     });
 }
 
