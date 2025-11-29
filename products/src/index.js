@@ -1,19 +1,21 @@
-import { faker } from '@faker-js/faker';
+import {faker} from '@faker-js/faker';
 
-let products = [];
+const mount = (el) => {
 
-for (let i = 0; i < 8; i++) {
-    products.push({
-        name: faker.commerce.productName(),
-        price: faker.commerce.price(),
-        category: faker.commerce.department(),
-        image: `https://picsum.photos/seed/${faker.string.alphanumeric(8)}/300/200`
-    });
-}
+    let products = [];
 
-console.log('Products MFE loaded!', products);
+    for (let i = 0; i < 8; i++) {
+        products.push({
+            name: faker.commerce.productName(),
+            price: faker.commerce.price(),
+            category: faker.commerce.department(),
+            image: `https://picsum.photos/seed/${faker.string.alphanumeric(8)}/300/200`
+        });
+    }
 
-const productsHtml = `
+    console.log('Products MFE loaded!', products);
+
+    const productsHtml = `
     <style>
         .products-header {
             display: flex;
@@ -171,4 +173,15 @@ const productsHtml = `
     </div>
 `;
 
-document.getElementById('products-index').innerHTML = productsHtml;
+    el.innerHTML = productsHtml;
+
+};
+
+if (process.env.NODE_ENV === 'development') {
+    const devRoot = document.querySelector('#dev-products');
+    if (devRoot) {
+        mount(devRoot);
+    }
+}
+
+export {mount};

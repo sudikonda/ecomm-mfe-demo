@@ -1,24 +1,26 @@
 import { faker } from '@faker-js/faker';
 
-console.log('Cart MFE loaded!');
+const mount = (el) => {
 
-const randomInt = faker.number.int({ min: 2, max: 6 });
+    console.log('Cart MFE loaded!');
 
-const cartItems = Array.from({ length: randomInt }).map(() => ({
-    name: faker.commerce.productName(),
-    price: faker.commerce.price(50, 500, 2, '$'),
-    quantity: faker.number.int({ min: 1, max: 3 }),
-    image: `https://picsum.photos/seed/${faker.string.alphanumeric(8)}/80/80`
-}));
+    const randomInt = faker.number.int({min: 2, max: 6});
 
-const subtotal = cartItems.reduce((sum, item) => {
-    return sum + (parseFloat(item.price.replace('$', '')) * item.quantity);
-}, 0);
+    const cartItems = Array.from({length: randomInt}).map(() => ({
+        name: faker.commerce.productName(),
+        price: faker.commerce.price(50, 500, 2, '$'),
+        quantity: faker.number.int({min: 1, max: 3}),
+        image: `https://picsum.photos/seed/${faker.string.alphanumeric(8)}/80/80`
+    }));
 
-const tax = subtotal * 0.08;
-const total = subtotal + tax;
+    const subtotal = cartItems.reduce((sum, item) => {
+        return sum + (parseFloat(item.price.replace('$', '')) * item.quantity);
+    }, 0);
 
-const cartHtml = `
+    const tax = subtotal * 0.08;
+    const total = subtotal + tax;
+
+    const cartHtml = `
     <style>
         .cart-header {
             display: flex;
@@ -291,4 +293,15 @@ const cartHtml = `
     <button class="checkout-btn">Checkout</button>
 `;
 
-document.getElementById('cart-show').innerHTML = cartHtml;
+    el.innerHTML = cartHtml;
+
+};
+
+if (process.env.NODE_ENV === 'development') {
+    const devRoot = document.querySelector('#dev-cart-show');
+    if (devRoot) {
+        mount(devRoot);
+    }
+}
+
+export {mount};
